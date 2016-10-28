@@ -6,9 +6,9 @@ package com.example.god.springboot_rest_android;
 
 public class Test {
 
-    private int 	no;
-    private String 	name;
-    private int 	age;
+    private int no;
+    private String name;
+    private String age;
 
     public int getNo() {
         return no;
@@ -26,11 +26,11 @@ public class Test {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 }

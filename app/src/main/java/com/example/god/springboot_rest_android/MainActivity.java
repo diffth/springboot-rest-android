@@ -2,8 +2,10 @@ package com.example.god.springboot_rest_android;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.textView)
     TextView textView;
+    @BindView(R.id.edView)
+    EditText edView;
+    @BindView(R.id.edInsertName)
+    EditText edInsertName;
+    @BindView(R.id.edInsertAge)
+    EditText edInsertAge;
+    @BindView(R.id.edUpdateName)
+    EditText edUpdateName;
+    @BindView(R.id.edUpdateAge)
+    EditText edUpdateAge;
 
     private MainActivity mContext;
 
@@ -103,11 +115,14 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.btnList:
 
+                //LIST
                 testService.getList().enqueue(new Callback<List<Test>>() {
                     @Override
                     public void onResponse(Call<List<Test>> call, Response<List<Test>> response) {
 
                         if (response.isSuccessful()) {
+                            textView.setText("");
+
                             for (Test getList : response.body()) {
                                 textView.append(getList.getNo() + " " + getList.getName() + " " + getList.getAge() + "\n");
                             }
@@ -123,12 +138,89 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case R.id.btnView:
+
+                //READ
+                testService.getView(edView.getText().toString().trim()).enqueue(new Callback<Test>() {
+                    @Override
+                    public void onResponse(Call<Test> call, Response<Test> response) {
+
+                        if (response.isSuccessful()) {
+                            textView.setText("");
+                            Test testView = response.body();
+                            textView.setText(testView.getNo() + " " + testView.getName() + " " + testView.getAge());
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Test> call, Throwable t) {
+
+                    }
+                });
                 break;
             case R.id.btnDel:
+
+                //DELETE
+                testService.getDelete(edView.getText().toString().trim()).enqueue(new Callback<Test>() {
+                    @Override
+                    public void onResponse(Call<Test> call, Response<Test> response) {
+                        if (response.isSuccessful()) {
+                            textView.setText("");
+                            textView.setText("삭제");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Test> call, Throwable t) {
+
+                    }
+                });
                 break;
             case R.id.btnInsert:
+
+                String name = edInsertName.getText().toString().trim();
+                String age = edInsertAge.getText().toString().trim();
+
+                //CREATE
+                testService.insertTest(name, age).enqueue(new Callback<Test>() {
+                    @Override
+                    public void onResponse(Call<Test> call, Response<Test> response) {
+                        if (response.isSuccessful()) {
+                            textView.setText("");
+                            textView.setText("입력");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Test> call, Throwable t) {
+
+                    }
+                });
                 break;
             case R.id.btnUpdate:
+
+                String uno   = edView.getText().toString();
+                String uname = edUpdateName.getText().toString().trim();
+                String uage  = edUpdateAge.getText().toString().trim();
+
+                Log.v("UPDATE", uno.toString());
+
+                //UPDATE
+                testService.updateTest(uno, uname, uage).enqueue(new Callback<Test>() {
+                    @Override
+                    public void onResponse(Call<Test> call, Response<Test> response) {
+                        if (response.isSuccessful()) {
+                            textView.setText("");
+                            textView.setText("수정");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Test> call, Throwable t) {
+
+                    }
+                });
                 break;
         }
     }

@@ -10,7 +10,11 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -23,6 +27,21 @@ public interface TestService {
 
     @GET("test")
     Call<List<Test>> getList();
+
+    @GET("test/{no}")
+    Call<Test> getView(@Path("no") String no);
+
+    @DELETE("test/{no}")
+    Call<Test> getDelete(@Path("no") String no);
+
+    @FormUrlEncoded
+    @POST("test")
+    Call<Test> insertTest(@Field("name") String name, @Field("age") String age);
+
+    @FormUrlEncoded
+    @PUT("test/{no}")
+    Call<Test> updateTest(@Path("no") String no, @Field("name") String name, @Field("age") String age);
+
     //Call<ResponseBody> getList();
 
     //@GET("test/{no}")
@@ -45,8 +64,8 @@ public interface TestService {
             if (service == null) {
                 client = new OkHttpClient().newBuilder()
                         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)  //연결 타임아웃 시간 설정
-                        .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)      //쓰기 타임아웃 시간 설정
-                        .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)        //읽기 타임아웃 시간 설정
+                        .writeTimeout(WRITE_TIMEOUT,     TimeUnit.SECONDS)  //쓰기 타임아웃 시간 설정
+                        .readTimeout(READ_TIMEOUT,       TimeUnit.SECONDS)  //읽기 타임아웃 시간 설정
                         .build();
 
                 Retrofit retrofit = new Retrofit.Builder()
@@ -60,7 +79,5 @@ public interface TestService {
                 return service;
             }
         }
-
-
     }
 }
