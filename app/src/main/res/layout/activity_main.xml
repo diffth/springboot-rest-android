@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.god.springboot_rest_android.MainActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edList"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <Button
+            android:id="@+id/btnList"
+            android:layout_height="match_parent"
+            android:text="LIST"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edView"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <Button
+            android:id="@+id/btnView"
+            android:layout_height="match_parent"
+            android:text="VIEW"
+            android:layout_width="wrap_content" />
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_height="match_parent"
+            android:text="DELETE"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edInsertName"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <EditText
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edInsertAge"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <Button
+            android:id="@+id/btnInsert"
+            android:layout_height="match_parent"
+            android:text="INSERT"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <EditText
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edUpdateName"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <EditText
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/edUpdateAge"
+            style="@style/Widget.AppCompat.EditText" />
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_height="match_parent"
+            android:text="UPDATE"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
