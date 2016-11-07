@@ -13,11 +13,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    final static String TAG = "MainActivity";
 
     //Retrofit retrofit;
     TestService testService;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     EditText edUpdateName;
     @BindView(R.id.edUpdateAge)
     EditText edUpdateAge;
+    @BindView(R.id.textViewState)
+    TextView textViewState;
 
     private MainActivity mContext;
 
@@ -122,18 +127,20 @@ public class MainActivity extends AppCompatActivity {
 
                         if (response.isSuccessful()) {
                             textView.setText("");
+                            textViewState.setText("목록");
 
                             for (Test getList : response.body()) {
                                 textView.append(getList.getNo() + " " + getList.getName() + " " + getList.getAge() + "\n");
                             }
-                        } else {
-
+                        }else{
+                            int fCode = response.code();
+                            Log.e(TAG, "unSuccessful : "+ fCode);
                         }
                     }
 
                     @Override
                     public void onFailure(Call<List<Test>> call, Throwable t) {
-
+                        Log.e(TAG, "onFailure List : "+ t.getMessage());
                     }
                 });
                 break;
@@ -146,16 +153,16 @@ public class MainActivity extends AppCompatActivity {
 
                         if (response.isSuccessful()) {
                             textView.setText("");
+                            textViewState.setText("상세");
+
                             Test testView = response.body();
                             textView.setText(testView.getNo() + " " + testView.getName() + " " + testView.getAge());
-                        } else {
-
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Test> call, Throwable t) {
-
+                        Log.e(TAG, "onFailure View : "+ t.getMessage());
                     }
                 });
                 break;
@@ -167,13 +174,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<Test> call, Response<Test> response) {
                         if (response.isSuccessful()) {
                             textView.setText("");
-                            textView.setText("삭제");
+                            textViewState.setText("삭제");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Test> call, Throwable t) {
-
+                        Log.e(TAG, "onFailure Delete : "+ t.getMessage());
                     }
                 });
                 break;
@@ -182,43 +189,42 @@ public class MainActivity extends AppCompatActivity {
                 String name = edInsertName.getText().toString().trim();
                 String age = edInsertAge.getText().toString().trim();
 
-                //CREATE
-                testService.insertTest(name, age).enqueue(new Callback<Test>() {
+               //CREATE
+                testService.insertTest(name, age).enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<Test> call, Response<Test> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             textView.setText("");
-                            textView.setText("입력");
+                            textViewState.setText("등록");
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Test> call, Throwable t) {
-
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(TAG, "onFailure Insert : "+ t.getMessage());
                     }
                 });
                 break;
             case R.id.btnUpdate:
 
-                String uno   = edView.getText().toString();
+                String uno = edView.getText().toString();
                 String uname = edUpdateName.getText().toString().trim();
-                String uage  = edUpdateAge.getText().toString().trim();
-
-                Log.v("UPDATE", uno.toString());
+                String uage = edUpdateAge.getText().toString().trim();
 
                 //UPDATE
-                testService.updateTest(uno, uname, uage).enqueue(new Callback<Test>() {
+                testService.updateTest(uno, uname, uage).enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<Test> call, Response<Test> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
                         if (response.isSuccessful()) {
                             textView.setText("");
-                            textView.setText("수정");
+                            textViewState.setText("수정");
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<Test> call, Throwable t) {
-
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e(TAG, "onFailure Update : "+ t.getMessage());
                     }
                 });
                 break;

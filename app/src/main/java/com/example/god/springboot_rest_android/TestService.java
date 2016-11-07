@@ -6,13 +6,16 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -23,8 +26,8 @@ import retrofit2.http.Path;
 
 public interface TestService {
 
-    String BASE_URL = "http://52.78.215.218/app/";
-    //String BASE_URL = "http://192.168.0.3:8080/app/";
+    //String BASE_URL = "http://52.78.215.218/app/";
+    String BASE_URL = "http://192.168.123.176:8080/app/";
 
     @GET("test")
     Call<List<Test>> getList();
@@ -37,16 +40,18 @@ public interface TestService {
 
     @FormUrlEncoded
     @POST("test")
-    Call<Test> insertTest(@Field("name") String name, @Field("age") String age);
+    Call<ResponseBody> insertTest(@Field("name") String name, @Field("age") String age);
 
     @FormUrlEncoded
     @PUT("test/{no}")
-    Call<Test> updateTest(@Path("no") String no, @Field("name") String name, @Field("age") String age);
+    Call<ResponseBody> updateTest(@Path("no") String no, @Field("name") String name, @Field("age") String age);
+
+
 
     //Call<ResponseBody> getList();
 
     //@GET("test/{no}")
-    //Call<List<Test>> getComment(@Path("no") int no);
+    //Call<List<Test>> getComment(@Path("no") int no);Call<Test> insertTest(String , String );
     //Call<ResponseBody> getComment(@Path("no") int no);
 
     //@DELETE("test/{no}")
