@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }else{
                             int fCode = response.code();
-                            Log.e(TAG, "unSuccessful : "+ fCode);
+                            Log.e(TAG, "List unSuccessful : "+ fCode);
                         }
                     }
 
@@ -157,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
 
                             Test testView = response.body();
                             textView.setText(testView.getNo() + " " + testView.getName() + " " + testView.getAge());
+                        }else{
+                            int fCode = response.code();
+                            Log.e(TAG, "View unSuccessful : "+ fCode);
                         }
                     }
 
@@ -175,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             textView.setText("");
                             textViewState.setText("삭제");
+                        }else{
+                            int fCode = response.code();
+                            Log.e(TAG, "Delete unSuccessful : "+ fCode);
                         }
                     }
 
@@ -196,6 +202,9 @@ public class MainActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             textView.setText("");
                             textViewState.setText("등록");
+                        }else{
+                            int fCode = response.code();
+                            Log.e(TAG, "Insert unSuccessful : "+ fCode);
                         }
                     }
 
@@ -219,6 +228,9 @@ public class MainActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             textView.setText("");
                             textViewState.setText("수정");
+                        }else{
+                            int fCode = response.code();
+                            Log.e(TAG, "Update unSuccessful : "+ fCode);
                         }
                     }
 
