@@ -26,7 +26,6 @@ import retrofit2.http.Path;
 
 public interface TestService {
 
-    //String BASE_URL = "http://52.78.215.218/app/";
     String BASE_URL = "http://192.168.123.176:8080/app/";
 
     @GET("test")
